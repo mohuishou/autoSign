@@ -1,0 +1,14 @@
+{
+	"name":"mohuishou/auto-sign",
+	"description":"联通优选在沃自动签到包",
+    "require": {
+        "php": ">5.4",
+		"php-curl-class/php-curl-class": "^4.13",
+		"mohuishou/image-ocr": "^0.1.0"
+    },
+    "autoload": {
+        "psr-4": {"Mohuishou\\Lib\\": "lib/"}
+    },
+	"repositories": {
+	}
+}
