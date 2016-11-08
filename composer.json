@@ -4,7 +4,7 @@
     "require": {
         "php": ">5.4",
 		"php-curl-class/php-curl-class": "^4.13",
-		"mohuishou/image-ocr": "^0.1.0"
+		"mohuishou/image-ocr": "dev-master"
     },
     "autoload": {
         "psr-4": {"Mohuishou\\Lib\\": "lib/"}

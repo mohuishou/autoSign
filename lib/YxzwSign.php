@@ -60,6 +60,9 @@ class YxzwSign
 	public function __construct()
 	{
 		$this->_curl=new Curl();
+        $ip=rand(1,233).'.'.rand(1,233).'.'.rand(1,233).'.'.rand(1,233);
+        $this->_curl->setHeader("X-Forwarded-For",$ip);
+        $this->_curl->setHeader("Referer",'http://169ol.com');
 	}
 
     /**
@@ -67,7 +70,7 @@ class YxzwSign
      * @param int $i 第i次尝试
      */
 	public function getCode($i=0){
-	    $img_path='./img/code'.$i.'.png';
+	    $img_path=__DIR__.'/../img/code'.$i.'.png';
         $curl =new Curl();
         $curl->download($this->_code_url, $img_path);
         $this->_login_cookie=$curl->getResponseCookie("PHPSESSID");
@@ -193,13 +196,15 @@ class YxzwSign
             "status"=>1,//签到状态，1成功，2已经签到，0签到失败,-1:登录失败
             "sign_info"=>'', //本月签到详细信息，对象
             "all_sign"=>0,  //本月签到总次数
-            "wb"=>0 //剩余沃贝数目
+            "wb"=>0, //剩余沃贝数目
+            "msg"=>"" //提示信息
         ];
 
         //登录
         $res_login=$this->login($phone,$password);
         if(!$res_login){
             $data['status']=-1;
+            $data["msg"]="登录失败";
             return $data;
         }
 
