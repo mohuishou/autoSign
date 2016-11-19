@@ -18,25 +18,25 @@ class YxzwSign
      * 签到地址
      * @var $_sign_url
      */
-    protected $_sign_url="http://169ol.com/Mall/Sign/ajaxSign";
+    protected $_sign_url="http://169ol.com/Stream/Sign/ajaxSign";
 
     /**
      * 登陆地址
      * @var $_login_url
      */
-    protected $_login_url="http://169ol.com/Mobile/User/submitLogin";
+    protected $_login_url="http://169ol.com/Stream/User/submitLogin";
 
     /**
      * 获取验证码图片
      * @var string
      */
-    protected $_code_url="http://www.169ol.com/Mall/Code/getCode&1462104790492";
+    protected $_code_url="http://169ol.com/Stream/Code/getCode";
 
     /**
      * 用户签到界面
      * @var string
      */
-    protected $_sign_res="http://169ol.com/Mall/Sign/h5";
+    protected $_sign_res="http://169ol.com/Stream/Sign/h5";
 
     /**
      * 登陆参数
@@ -47,7 +47,7 @@ class YxzwSign
         "password"=>"",//密码
         "imgcode"=>"",//验证码
         "type"=>1,
-        "backurl"=>"/Mobile/Personal/index"
+        "backurl"=>"/Stream/Home/index"
     ];
 
     /**
@@ -72,6 +72,10 @@ class YxzwSign
 	public function getCode($i=0){
 	    $img_path=__DIR__.'/../img/code'.$i.'.png';
         $curl =new Curl();
+        $ip=rand(1,233).'.'.rand(1,233).'.'.rand(1,233).'.'.rand(1,233);
+        $this->_curl->setHeader("X-Forwarded-For",$ip);
+        $this->_curl->setHeader("Referer",'http://169ol.com');
+        // $curl->setOpt(CURLOPT_ENCODING , 'gzip');
         $curl->download($this->_code_url, $img_path);
         $this->_login_cookie=$curl->getResponseCookie("PHPSESSID");
         $img=new Image($img_path);
@@ -120,6 +124,9 @@ class YxzwSign
             throw new \Exception($error_msg);
         }else {
             $res=json_decode($this->_curl->response);
+            if(!$res){
+                return 1;
+            }
             if($res->code){
                 return 1;
             }else{

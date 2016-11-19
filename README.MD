@@ -35,5 +35,33 @@ require_once "vendor/autoload.php"
 
 #### 返回值
 
+| 参数 | 说明 |
+|:------:|-------|
+|status|签到状态，1:签到成功,2:已签到,0:签到失败,-1:用户名或密码错误|
+|sign_info|当月签到信息|
+|all_sign|当月签到总数|
+|wb|用户当前沃贝数目|
+|msg|提示信息|
+
+
+```
+Array
+(
+    [status] => 2
+    [sign_info] => stdClass Object
+        (
+            [1] => stdClass Object
+                (
+                    [signed] => 1
+                    [makeUp] => 0
+                    [felwareType] => 0
+                )
+            ……
+        )
+    [all_sign] => 9
+    [wb] => 825
+    [msg] => 
+)
+```
 ## Features
 - [ ] 沃贝四川自动签到
